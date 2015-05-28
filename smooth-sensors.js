@@ -24,7 +24,9 @@ SmoothSensors.prototype = {
 		this.quartileIndex1 = Math.floor(this.data.length * .25);
 		this.quartileIndex3 = Math.floor(this.data.length * .75);
 		this.medianIndex = Math.floor(this.data.length * .50);
-		var data = this.data.slice().sort((a, b) => a - b);
+		var data = this.data.slice().sort(function (a, b) {
+			return a - b;
+		});
 		var interQuartileDistance = data[this.quartileIndex3] - data[this.quartileIndex1];
 		var median = data[this.medianIndex];
 		var min = median - 1.5 * interQuartileDistance;
