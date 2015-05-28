@@ -23,7 +23,7 @@ function ParachuteModule(rocket, io) {
 	this.onRocketData = function(datum) {
 		self.log('[%s] %s', self.getName(), self.state);
 		console.log(datum);
-		self.smoothSensors.mark(datum);
+		// self.smoothSensors.mark(datum);
 
 		switch (self.state) {
 			case PRE_LAUNCH:
