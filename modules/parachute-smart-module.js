@@ -11,30 +11,31 @@ var AFTER_CHUTE = 'AFTER_CHUTE';
 
 function ParachuteModule(rocket, io) {
 	RocketModule.call(this, 'smart-parachute', rocket, io);
+	var self = this;
 
 	// this.smoothSensors = new SmoothSensors();
 	this.altitudeTimer = new AltitudeTimer(.5);
 	this.state = PRE_LAUNCH;
 
 	this.onRocketReady = function () {
-		this.log('Rocket ready!');
+		self.log('Rocket ready!');
 	};
 	this.onRocketData = function(datum) {
-		this.log('[%s] %s', this.getName(), this.state);
+		self.log('[%s] %s', self.getName(), self.state);
 		console.log(datum);
-		this.smoothSensors.mark(datum);
+		self.smoothSensors.mark(datum);
 
-		switch (this.state) {
+		switch (self.state) {
 			case PRE_LAUNCH:
 				if (datum.ay < -2) {
-					this.state = LAUNCHED;
+					self.state = LAUNCHED;
 				}
 				break;
 			case LAUNCHED:
-				this.altitudeTimer.mark(datum);
-				if (this.altitudeTimer.shouldDeploy()) {
-					this.rocket.deployParachute();
-					this.state = AFTER_CHUTE;
+				self.altitudeTimer.mark(datum);
+				if (self.altitudeTimer.shouldDeploy()) {
+					self.rocket.deployParachute();
+					self.state = AFTER_CHUTE;
 				}
 				break;
 			case AFTER_CHUTE:
