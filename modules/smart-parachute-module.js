@@ -1,7 +1,7 @@
 var util = require('util');
 
 var RocketModule = require('../rocket-module');
-// var SmoothSensors = require('../smooth-sensors');
+var SmoothSensors = require('../smooth-sensors');
 var AltitudeTimer = require('../altitude-timer');
 
 var PRE_LAUNCH = 'PRE_LAUNCH';
@@ -11,11 +11,11 @@ var AFTER_CHUTE = 'AFTER_CHUTE';
 
 function ParachuteModule(rocket, io) {
 	RocketModule.call(this, 'smart-parachute', rocket, io);
-	var self = this;
-
-	// this.smoothSensors = new SmoothSensors();
+	this.smoothSensors = new SmoothSensors();
 	this.altitudeTimer = new AltitudeTimer(.5);
 	this.state = PRE_LAUNCH;
+
+	var self = this;
 
 	this.onRocketReady = function () {
 		self.log('Rocket ready!');
@@ -31,7 +31,11 @@ function ParachuteModule(rocket, io) {
 				}
 				break;
 			case LAUNCHED:
-				self.altitudeTimer.mark(datum);
+				self.altitudeTimer.mark({
+					dt: datum.dt,
+					alt: this.smoothSensors.getAltitude()
+				});
+				
 				if (self.altitudeTimer.shouldDeploy()) {
 					self.rocket.deployParachute();
 					self.state = AFTER_CHUTE;
