@@ -1,4 +1,3 @@
-'use strict';
 var util = require('util');
 
 var RocketModule = require('../rocket-module');
@@ -11,7 +10,6 @@ var AFTER_CHUTE = 'AFTER_CHUTE';
 
 
 function ParachuteModule(rocket, io) {
-	console.log('Parachute module started');
 	RocketModule.call(this, 'smart-parachute', rocket, io);
 
 	// this.smoothSensors = new SmoothSensors();
@@ -46,23 +44,21 @@ function ParachuteModule(rocket, io) {
 	};
 }
 
-ParachuteModule.prototype = {
+util.inherits(ParachuteModule, RocketModule);
 
-	doEnable: function() {
-		if (!this.enabled) {
-			this.rocket.on('rocket.ready', this.onRocketReady);
-			this.rocket.on('rocket.data', this.onRocketData);
-		}
-	},
-
-	doDisable: function() {
-		if (this.enabled) {
-			this.rocket.removeListener('rocket.ready', this.onRocketReady);
-			this.rocket.removeListener('rocket.data', this.onRocketData);
-		}
+ParachuteModule.prototype.doEnable = function() {
+	if (!this.enabled) {
+		this.rocket.on('rocket.ready', this.onRocketReady);
+		this.rocket.on('rocket.data', this.onRocketData);
 	}
 };
 
-util.inherits(ParachuteModule, RocketModule);
+ParachuteModule.prototype.doDisable = function() {
+	if (this.enabled) {
+		this.rocket.removeListener('rocket.ready', this.onRocketReady);
+		this.rocket.removeListener('rocket.data', this.onRocketData);
+	}
+};
+
 
 module.exports = ParachuteModule;
