@@ -12,16 +12,6 @@
  * Documentation: http://www.3quarks.com/en/SegmentDisplay
  */
 
-// Segment display types
-SegmentDisplay.SevenSegment    = 7;
-SegmentDisplay.FourteenSegment = 14;
-SegmentDisplay.SixteenSegment  = 16;
-
-// Segment corner types
-SegmentDisplay.SymmetricCorner = 0;
-SegmentDisplay.SquaredCorner   = 1;
-SegmentDisplay.RoundedCorner   = 2;
-
 
 function SegmentDisplay(displayId) {
   this.displayId       = displayId;
@@ -38,6 +28,16 @@ function SegmentDisplay(displayId) {
   this.colorOn         = 'rgb(233, 93, 15)';
   this.colorOff        = 'rgb(75, 30, 5)';
 };
+
+// Segment display types
+SegmentDisplay.SevenSegment    = 7;
+SegmentDisplay.FourteenSegment = 14;
+SegmentDisplay.SixteenSegment  = 16;
+
+// Segment corner types
+SegmentDisplay.SymmetricCorner = 0;
+SegmentDisplay.SquaredCorner   = 1;
+SegmentDisplay.RoundedCorner   = 2;
 
 SegmentDisplay.prototype.setValue = function(value) {
   this.value = value;
