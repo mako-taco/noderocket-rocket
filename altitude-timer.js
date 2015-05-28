@@ -18,10 +18,11 @@ class AltitudeTimer {
 		this.previousAltitude = this.altitude;
 		this.altitude = data.alt;
 
-		let dt = (this.time - this.previousTime);
+		let dt = (this.time - this.previousTime) / 1000;
 		let da = (this.altitude - this.previousAltitude);
 
 		this.velocity = da / dt;
+		console.log(this.velocity);
 
 		if (this.firstTime) {
 			this.firstTime = false;
