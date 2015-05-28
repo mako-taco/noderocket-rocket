@@ -13,7 +13,7 @@ function AltitudeTimer(threshold) {
 
 AltitudeTimer.prototype.mark = function(data) {
 	this.previousTime = this.time;
-	this.time = data.dt.getTime();
+	this.time = data.dt;
 	this.previousAltitude = this.altitude;
 	this.altitude = data.alt;
 
