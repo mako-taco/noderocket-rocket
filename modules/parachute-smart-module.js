@@ -17,14 +17,11 @@ function ParachuteModule(rocket, io) {
 	// this.smoothSensors = new SmoothSensors();
 	this.altitudeTimer = new AltitudeTimer(.5);
 	this.state = PRE_LAUNCH;
-}
 
-ParachuteModule.prototype = {
-	onRocketReady: function () {
-		module.log('Rocket ready!');
-	},
-
-	onRocketData: function(datum) {
+	this.onRocketReady = function () {
+		this.log('Rocket ready!');
+	};
+	this.onRocketData = function(datum) {
 		this.log('[%s] %s', this.getName(), this.state);
 
 		this.smoothSensors.mark(datum);
@@ -46,7 +43,10 @@ ParachuteModule.prototype = {
 				break;
 
 		}
-	},
+	};
+}
+
+ParachuteModule.prototype = {
 
 	doEnable: function() {
 		if (!this.enabled) {
