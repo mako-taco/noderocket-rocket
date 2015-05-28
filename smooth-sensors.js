@@ -38,7 +38,11 @@ SmoothSensors.prototype = {
 
 	getAltitude: function() {
 		var noOutliers = this.data.removeOutliers('alt');
-		var sum = noOutliers.map(x => x.alt).reduce((a, b) => a + b);
+		var sum = noOutliers.map(function (x) {
+			return x.alt;
+		}).reduce(function(a, b) {
+			return a + b;
+		});
 
 		return sum / noOutliers.length;
 	}
