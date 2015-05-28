@@ -2,7 +2,7 @@
 var util = require('util');
 
 var RocketModule = require('../rocket-module');
-var SmoothSensors = require('../smooth-sensors');
+// var SmoothSensors = require('../smooth-sensors');
 var AltitudeTimer = require('../altitude-timer');
 
 var PRE_LAUNCH = 'PRE_LAUNCH';
@@ -13,7 +13,7 @@ var AFTER_CHUTE = 'AFTER_CHUTE';
 function ParachuteModule(rocket, io) {
 	RocketModule.call(this, 'smart-parachute', rocket, io);
 
-	this.smoothSensors = new SmoothSensors();
+	// this.smoothSensors = new SmoothSensors();
 	this.altitudeTimer = new AltitudeTimer(.5);
 	this.state = PRE_LAUNCH;
 }
