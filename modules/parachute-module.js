@@ -25,6 +25,8 @@ function ParachuteModule(rocket, io) {
   };
 
   this.onRocketData = function(data) {
+    console.log(data);
+
     // Watch for launch
     if (status_code === 0 && data.ay < -2) {
       status_code = 1;
