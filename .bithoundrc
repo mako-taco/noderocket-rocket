@@ -1,5 +1,8 @@
 {
   "ignore": [
+    "pirocket-boreas.js",
+    "pirocket.js",
+    "**/deprecated/**",
     "**/driver/**",
     "**/www/**",
     "**/deps/**",
