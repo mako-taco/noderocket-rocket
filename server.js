@@ -1,3 +1,5 @@
+require('babel/register');
+
 /* jshint node:true, strict:false, laxcomma:true */
 var os = require('os');
 var Log = require('log');
