@@ -1,18 +1,17 @@
 'use strict';
 
 function SmoothSensors (windowSize) {
-	this.quartileIndex1 = Math.floor(this.data.length * .25);;
-	this.quartileIndex3 = Math.floor(this.data.length * .75);;
-	this.medianIndex = Math.floor(this.data.length * .50);;
 	this.windowSize = windowSize || 10;
-	this.data = new Array(windowSize);
-	this.times = new Array(windowSize);
+	this.data = [];
+	this.times = [];
 }
 
 SmoothSensors.prototype = {
 	mark: function (datum) {
 		this.data.push(datum);
-		this.data.shift();
+		if(this.data.length > this.windowSize) {
+			this.data.shift();
+		}
 	},
 
 	/**
@@ -22,6 +21,9 @@ SmoothSensors.prototype = {
 	 * @return {RocketData[]}
 	 */
 	removeOutliers: function (field) {
+		this.quartileIndex1 = Math.floor(this.data.length * .25);;
+		this.quartileIndex3 = Math.floor(this.data.length * .75);;
+		this.medianIndex = Math.floor(this.data.length * .50);;
 		let data = this.data.slice().sort((a, b) => a - b);
 		let interQuartileDistance = data[this.quartileIndex3] - data[quartileIndex1];
 		let median = data[this.medianIndex];
