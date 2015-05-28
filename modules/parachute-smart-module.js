@@ -11,6 +11,7 @@ var AFTER_CHUTE = 'AFTER_CHUTE';
 
 
 function ParachuteModule(rocket, io) {
+	console.log('Parachute module started');
 	RocketModule.call(this, 'smart-parachute', rocket, io);
 
 	// this.smoothSensors = new SmoothSensors();
