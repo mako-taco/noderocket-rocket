@@ -1,27 +1,29 @@
 'use strict';
+var util = require('util');
 
-import RocketModule from '../rocket-module';
-import SmoothSensors from '../smooth-sensors';
-import AltitudeTimer from '../altitude-timer';
+var RocketModule = require('../rocket-module');
+var SmoothSensors = require('../smooth-sensors');
+var AltitudeTimer = require('../altitude-timer');
 
-const PRE_LAUNCH = 'PRE_LAUNCH';
-const LAUNCHED = 'LAUNCHED';
-const AFTER_CHUTE = 'AFTER_CHUTE';
+var PRE_LAUNCH = 'PRE_LAUNCH';
+var LAUNCHED = 'LAUNCHED';
+var AFTER_CHUTE = 'AFTER_CHUTE';
 
 
-class ParachuteModule extends RocketModule {
-	constructor(rocket, io) {
-		super('parachute-smart', rocket, io);
-		this.smoothSensors = new SmoothSensors();
-		this.altitudeTimer = new AltitudeTimer(.5);
-		this.state = PRE_LAUNCH;
-	}
+function ParachuteModule(rocket, io) {
+	RocketModule.call(this, 'smart-parachute', rocket, io);
 
-	onRocketReady() {
+	this.smoothSensors = new SmoothSensors();
+	this.altitudeTimer = new AltitudeTimer(.5);
+	this.state = PRE_LAUNCH;
+}
+
+ParachuteModule.prototype = {
+	onRocketReady: function () {
 		module.log('Rocket ready!');
-	}
+	},
 
-	onRocketData(datum) {
+	onRocketData: function(datum) {
 		this.log('[%s] %s', this.getName(), this.state);
 
 		this.smoothSensors.mark(datum);
@@ -43,19 +45,23 @@ class ParachuteModule extends RocketModule {
 				break;
 
 		}
-	}
+	},
 
-	doEnable() {
+	doEnable: function() {
 		if (!this.enabled) {
 			this.rocket.on('rocket.ready', this.onRocketReady);
 			this.rocket.on('rocket.data', this.onRocketData);
 		}
-	}
+	},
 
-	doDisable() {
+	doDisable: function() {
 		if (this.enabled) {
 			this.rocket.removeListener('rocket.ready', this.onRocketReady);
 			this.rocket.removeListener('rocket.data', this.onRocketData);
 		}
 	}
-}
+};
+
+util.inherits(ParachuteModule, RocketModule);
+
+module.exports = ParachuteModule;
