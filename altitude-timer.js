@@ -21,7 +21,7 @@ AltitudeTimer.prototype.mark = function(data) {
 	var da = (this.altitude - this.previousAltitude);
 
 	this.velocity = da / dt;
-	console.log(this.velocity);
+	console.log(this.time, this.velocity);
 
 	if (this.firstTime) {
 		this.firstTime = false;

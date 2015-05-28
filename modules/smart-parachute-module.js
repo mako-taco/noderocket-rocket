@@ -21,8 +21,7 @@ function ParachuteModule(rocket, io) {
 		self.log('Rocket ready!');
 	};
 	this.onRocketData = function(datum) {
-		self.log('[%s] %s', self.getName(), self.state);
-		console.log(datum);
+		// self.log('[%s] %s', self.getName(), self.state);
 		// self.smoothSensors.mark(datum);
 
 		switch (self.state) {
