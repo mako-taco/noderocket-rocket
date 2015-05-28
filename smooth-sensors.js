@@ -32,7 +32,7 @@ SmoothSensors.prototype = {
 		var min = median - 1.5 * interQuartileDistance;
 		var max = median + 1.5 * interQuartileDistance;
 
-		return this.data.filter(datum => {
+		return this.data.filter(function(datum) {
 			var val = datum[field];
 			return val < max && val > min;
 		});
